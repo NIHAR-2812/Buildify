@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Buildify | Premium Digital Luxury</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-gold: linear-gradient(135deg, #d4af37 0%, #f1d592 50%, #b8962e 100%);
+            --gold-muted: #b8962e;
+            --gold-glow: rgba(212, 175, 55, 0.3);
+            --bg-dark: #050505;
+            --card-bg: rgba(18, 18, 18, 0.7);
+            --glass-border: rgba(212, 175, 55, 0.2);
+            --text-main: #ffffff;
+            --text-dim: #a0a0a0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+            background-color: var(--bg-dark);
+            background-image: 
+                radial-gradient(circle at 50% -20%, #1a1608 0%, transparent 50%),
+                radial-gradient(circle at 0% 100%, #0a0a0a 0%, transparent 30%);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* --- Animations --- */
+        @keyframes fadeInUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- Reusable Components --- */
+        .glass {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+        }
+
+        .gold-text {
+            background: var(--primary-gold);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+        }
+
+        /* --- Hero Section --- */
+        header {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            position: relative;
+        }
+
+        .logo {
+            width: 700px;
+            margin-bottom: 30px;
+            filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.4));
+        }
+
+        h1 {
+            font-size: clamp(3rem, 8vw, 5rem);
+            margin-bottom: 10px;
+            letter-spacing: -2px;
+        }
+
+        .tagline {
+            font-size: 1.2rem;
+            color: var(--text-dim);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 40px;
+        }
+
+        .btn-premium {
+            padding: 16px 40px;
+            background: var(--primary-gold);
+            color: #000;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 800;
+            text-transform: uppercase;
+            font-size: 14px;
+            letter-spacing: 1px;
+            transition: 0.4s;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-premium:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px var(--gold-glow);
+        }
+
+        /* --- Sections Layout --- */
+        section {
+            max-width: 1200px;
+            margin: 100px auto;
+            padding: 0 25px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 60px;
+        }
+
+        /* --- Services Grid --- */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+        }
+
+        .service-card {
+            padding: 40px;
+            text-align: left;
+            transition: 0.4s;
+        }
+
+        .service-card:hover {
+            border-color: var(--gold-muted);
+            transform: scale(1.02);
+        }
+
+        .price-badge {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 50px;
+            background: rgba(212, 175, 55, 0.1);
+            color: #ffd966;
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .service-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        /* --- Contact Section --- */
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 30px;
+        }
+
+        .contact-form {
+            padding: 40px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-field {
+            width: 100%;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            padding: 15px;
+            border-radius: 12px;
+            color: white;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .input-field:focus {
+            border-color: var(--gold-muted);
+            background: rgba(212, 175, 55, 0.05);
+        }
+
+        .quick-connect {
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .action-btns {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .action-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 15px;
+            border-radius: 15px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .link-call { background: rgba(255,255,255,0.05); color: #fff; border: 1px solid var(--glass-border); }
+        .link-whatsapp { background: #25d36622; color: #25d366; border: 1px solid #25d36644; }
+
+        .action-link:hover { transform: translateX(10px); background: rgba(212, 175, 55, 0.1); }
+
+        /* --- Footer --- */
+        footer {
+            padding: 60px 20px;
+            text-align: center;
+            border-top: 1px solid var(--glass-border);
+            margin-top: 100px;
+        }
+
+        .social-links {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            font-size: 20px;
+        }
+
+        .social-links a { color: var(--gold-muted); transition: 0.3s; }
+        .social-links a:hover { color: #fff; transform: translateY(-3px); }
+
+        @media (max-width: 768px) {
+            .contact-container { grid-template-columns: 1fr; }
+            h1 { font-size: 3rem; }
+        }
+
+            /* New Navigation Styles */
+        .nav-btn {
+            text-decoration: none;
+            color: var(--text-dim);
+            font-size: 14px;
+            font-weight: 600;
+            transition: 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nav-btn:hover {
+            color: #fff;
+            text-shadow: 0 0 8px var(--gold-glow);
+        }
+
+            /* Mobile Responsive Nav */
+        @media (max-width: 600px) {
+            .nav-links { gap: 10px; }
+            .nav-btn { font-size: 11px; }
+            nav { padding: 12px 20px; }
+        }
+
+            /* Smooth Scroll Padding */
+        html {
+            scroll-padding-top: 100px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <img src="buildify_logo.png" alt="Logo" class="logo reveal">
+    <h1 class="reveal">Buil<span class="gold-text">dify</span></h1>
+    <p class="tagline reveal">The Gold Standard of Digital</p>
+    <a href="#contact" class="btn-premium reveal">Start Your Project</a>
+    <nav class="glass reveal" style="position: fixed; top: 20px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 1000px; z-index: 2000; display: flex; justify-content: space-between; align-items: center; padding: 15px 30px; border-radius: 50px;">
+        <div class="nav-logo" style="font-weight: 800; font-size: 1.2rem; letter-spacing: 1px;">BUIL<span class="gold-text">DIFY</span></div>
+    
+        <div class="nav-links" style="display: flex; gap: 20px;">
+            <a href="#works" class="nav-btn">Work</a>
+            <a href="#services" class="nav-btn">Prices</a>
+            <a href="#contact" class="nav-btn">Contact</a>
+        </div>
+    </nav>
+</header>
+
+<section id="about" class="reveal">
+    <div class="glass" style="padding: 60px; text-align: center;">
+        <h2 class="section-title">Elevate Your <span class="gold-text">Presence</span></h2>
+        <p style="max-width: 800px; margin: 0 auto; font-size: 1.1rem; color: var(--text-dim);">
+            We don't just build websites; we craft digital assets. Specializing in high-conversion, luxury interfaces for professionals who refuse to settle for average. Based in Mumbai, serving the ambitious.
+        </p>
+    </div>
+</section>
+
+<section id="team">
+    <h2 class="section-title reveal">The <span class="gold-text">Architects</span></h2>
+    <div class="services-grid">
+        
+        <div class="service-card glass reveal" style="text-align: center;">
+            <div style="width: 150px; height: 150px; margin: 0 auto 20px; border-radius: 50%; border: 2px solid var(--gold-muted); overflow: hidden; position: relative; box-shadow: 0 0 20px var(--gold-glow);">
+                <img src="nihar.jpg" alt="Nihar" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+            <h3>Nihar Padave</h3>
+            <span class="price-badge" style="background: var(--primary-gold); color: #000; margin-bottom: 15px;">Web Designer & Frontend Developer</span>
+            <p style="color: var(--text-dim); font-size: 0.95rem; margin-bottom: 20px;">
+                A passionate web developer with a creative eye for design and user experience. Focuses on building modern, conversion-driven websites that help local businesses grow online. He believes every small business deserves a premium digital identity, not just a basic webpage.
+            </p>
+            <div class="social-links" style="font-size: 18px;">
+                <a href="https://github.com/NIHAR-2812" title="GitHub"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/niharpadave281206/" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://sites.google.com/view/niharpadave-2812/home" title="View Full Portfolio" style="color: #ffd966;"><i class="fas fa-briefcase"></i></a>
+            </div>
+        </div>
+
+        <div class="service-card glass reveal" style="text-align: center;">
+            <div style="width: 150px; height: 150px; margin: 0 auto 20px; border-radius: 50%; border: 2px solid var(--gold-muted); overflow: hidden; position: relative; box-shadow: 0 0 15px var(--gold-glow);">
+                <img src="devesh.png" alt="Devesh" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+            <h3>Devesh Patel</h3>
+            <span class="price-badge" style="background: var(--primary-gold); color: #000; margin-bottom: 15px;">Strategy & Client Solutions</span>
+            <p style="color: var(--text-dim); font-size: 0.95rem; margin-bottom: 20px;">
+                A problem solver and tech enthusiast who handles strategy, client communication, and execution. Ensures that every project delivered by buildify is practical, fast, and business-oriented with real results, not just good looks.
+            </p>
+            <div class="social-links" style="font-size: 18px;">
+                <a href="https://github.com/devesh1308" title="GitHub"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/deveshpatel1308/" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://sites.google.com/sakec.ac.in/deveshpatel/home" title="View Full Portfolio" style="color: #ffd966;"><i class="fas fa-briefcase"></i></a>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<section id="works">
+    <h2 class="section-title reveal">Featured <span class="gold-text">Work</span></h2>
+    <div class="services-grid">
+        
+        <div class="glass reveal" style="overflow: hidden; position: relative; border-radius: 24px; min-height: 350px; cursor: pointer; group">
+            <img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=800&q=80" alt="Clinical Website" style="width: 100%; height: 100%; object-fit: cover; transition: 0.5s;">
+            <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); display: flex; flex-direction: column; justify-content: flex-end; padding: 30px; transition: 0.4s;">
+                <span class="price-badge" style="width: fit-content;">HEALTHCARE</span>
+                <h3 style="margin: 10px 0;">Clinical Excellence UI</h3>
+                <p style="color: var(--text-dim); font-size: 0.9rem;">A luxury medical portal with automated appointment booking and patient triage systems.</p>
+                <a href="clinic.html" class="gold-text" style="text-decoration: none; font-size: 0.85rem; margin-top: 15px; letter-spacing: 1px;">VIEW DEMO <i class="fas fa-external-link-alt"></i></a>
+            </div>
+        </div>
+
+        <div class="glass reveal" style="overflow: hidden; position: relative; border-radius: 24px; min-height: 350px; cursor: pointer;">
+            <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=800&q=80" alt="Boutique Website" style="width: 100%; height: 100%; object-fit: cover; transition: 0.5s;">
+            <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); display: flex; flex-direction: column; justify-content: flex-end; padding: 30px;">
+                <span class="price-badge" style="width: fit-content;">LIFESTYLE</span>
+                <h3 style="margin: 10px 0;">Boutique Showroom</h3>
+                <p style="color: var(--text-dim); font-size: 0.9rem;">Visual-heavy catalog for premium retail brands, optimized for rapid WhatsApp inquiries.</p>
+                <a href="boutique.html" class="gold-text" style="text-decoration: none; font-size: 0.85rem; margin-top: 15px; letter-spacing: 1px;">VIEW DEMO <i class="fas fa-external-link-alt"></i></a>
+            </div>
+        </div>
+
+        <div class="glass reveal" style="overflow: hidden; position: relative; border-radius: 24px; min-height: 350px; cursor: pointer;">
+            <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80" alt="Agency Website" style="width: 100%; height: 100%; object-fit: cover; transition: 0.5s;">
+            <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); display: flex; flex-direction: column; justify-content: flex-end; padding: 30px;">
+                <span class="price-badge" style="width: fit-content;">CORPORATE</span>
+                <h3 style="margin: 10px 0;">Nexus Tech Group</h3>
+                <p style="color: var(--text-dim); font-size: 0.9rem;">Modern corporate landing page with real-time timesheet management features.</p>
+                <a href="#" class="gold-text" style="text-decoration: none; font-size: 0.85rem; margin-top: 15px; letter-spacing: 1px;">VIEW DEMO <i class="fas fa-external-link-alt"></i></a>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<section id="testimonials">
+    <h2 class="section-title reveal">Client <span class="gold-text">Voices</span></h2>
+    <div class="services-grid">
+        
+        <div class="service-card glass reveal" style="padding: 30px;">
+            <div style="display: flex; gap: 5px; margin-bottom: 15px; color: #ffd966;">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+            </div>
+            <p style="font-style: italic; color: var(--text-dim); margin-bottom: 20px;">
+                "Buildify transformed my clinic's digital presence. The automated booking system is seamless, and the black-gold theme gives my practice a truly premium feel. Highly recommended for professionals!"
+            </p>
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <div style="width: 50px; height: 50px; border-radius: 50%; background: #222; border: 1px solid var(--gold-muted); display: flex; align-items: center; justify-content: center; font-weight: bold; color: #ffd966;">DR</div>
+                <div>
+                    <h4 style="font-size: 0.9rem;">Dr. Rajesh Mehta</h4>
+                    <p style="font-size: 0.75rem; color: var(--gold-muted);">Healthcare Specialist</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="service-card glass reveal" style="padding: 30px;">
+            <div style="display: flex; gap: 5px; margin-bottom: 15px; color: #ffd966;">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+            </div>
+            <p style="font-style: italic; color: var(--text-dim); margin-bottom: 20px;">
+                "The boutique showroom site is a masterpiece. We saw a 40% increase in WhatsApp inquiries within the first week. Nihar and Devesh really understand luxury branding."
+            </p>
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <div style="width: 50px; height: 50px; border-radius: 50%; background: #222; border: 1px solid var(--gold-muted); display: flex; align-items: center; justify-content: center; font-weight: bold; color: #ffd966;">AK</div>
+                <div>
+                    <h4 style="font-size: 0.9rem;">Ananya Kapoor</h4>
+                    <p style="font-size: 0.75rem; color: var(--gold-muted);">Fashion Entrepreneur</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="service-card glass reveal" style="padding: 30px;">
+            <div style="display: flex; gap: 5px; margin-bottom: 15px; color: #ffd966;">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+            </div>
+            <p style="font-style: italic; color: var(--text-dim); margin-bottom: 20px;">
+                "Technically superior work. They integrated our timesheet management perfectly into the web portal. Their background in CS/Electronics really shows in the efficiency of their code."
+            </p>
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <div style="width: 50px; height: 50px; border-radius: 50%; background: #222; border: 1px solid var(--gold-muted); display: flex; align-items: center; justify-content: center; font-weight: bold; color: #ffd966;">VS</div>
+                <div>
+                    <h4 style="font-size: 0.9rem;">Vikram Singh</h4>
+                    <p style="font-size: 0.75rem; color: var(--gold-muted);">Tech CEO</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<section id="tech-stack">
+    <h2 class="section-title reveal">The <span class="gold-text">Engine</span></h2>
+    <div class="glass reveal" style="padding: 40px; display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 30px; text-align: center; align-items: center;">
+        
+        <div class="tech-item" style="transition: 0.3s;">
+            <i class="fab fa-python" style="font-size: 3rem; color: #ffd966; margin-bottom: 10px;"></i>
+            <p style="font-weight: 600; letter-spacing: 1px;">PYTHON</p>
+            <span style="font-size: 11px; color: var(--text-dim);">Data & Automation</span>
+        </div>
+
+        <div class="tech-item" style="transition: 0.3s;">
+            <i class="fab fa-java" style="font-size: 3rem; color: #ffd966; margin-bottom: 10px;"></i>
+            <p style="font-weight: 600; letter-spacing: 1px;">JAVA</p>
+            <span style="font-size: 11px; color: var(--text-dim);">Enterprise Systems</span>
+        </div>
+
+        <div class="tech-item" style="transition: 0.3s;">
+            <i class="mobile-icon" style="display: block; font-size: 3rem; color: #ffd966; margin-bottom: 10px;">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor"><path d="M14.314 0L2.3 12L6 15.7L21.686 0H14.314ZM21.686 12L18.4 15.285L14.714 11.6L12.3 14L16.429 18.114L12.3 22.257L14.314 24L22 16.314V12H21.686Z"/></svg>
+            </i>
+            <p style="font-weight: 600; letter-spacing: 1px;">FLUTTER</p>
+            <span style="font-size: 11px; color: var(--text-dim);">Hybrid Mobile</span>
+        </div>
+
+        <div class="tech-item" style="transition: 0.3s;">
+            <i class="fas fa-database" style="font-size: 3rem; color: #ffd966; margin-bottom: 10px;"></i>
+            <p style="font-weight: 600; letter-spacing: 1px;">SQL</p>
+            <span style="font-size: 11px; color: var(--text-dim);">Secure Storage</span>
+        </div>
+
+        <div class="tech-item" style="transition: 0.3s;">
+            <div style="font-size: 3rem; color: #ffd966; margin-bottom: 10px;">
+                <i class="fab fa-html5"></i> <i class="fab fa-js"></i>
+            </div>
+            <p style="font-weight: 600; letter-spacing: 1px;">MODERN WEB</p>
+            <span style="font-size: 11px; color: var(--text-dim);">JS & Glassmorphism</span>
+        </div>
+
+    </div>
+</section>
+
+<style>
+    .tech-item:hover {
+        transform: translateY(-10px);
+        filter: drop-shadow(0 0 10px var(--gold-glow));
+    }
+    .tech-item i, .tech-item svg {
+        transition: 0.3s;
+    }
+</style>
+
+<section id="contact">
+    <h2 class="section-title reveal">Secure Your <span class="gold-text">Slot</span></h2>
+    <div class="contact-container">
+        <div class="contact-form glass reveal">
+            <h3>Consult with Specialists</h3>
+            <form style="margin-top: 25px;">
+                <div class="input-group">
+                    <input type="text" class="input-field" placeholder="Full Name">
+                </div>
+                <div class="input-group">
+                    <input type="email" class="input-field" placeholder="Business Email">
+                </div>
+                <div class="input-group">
+                    <textarea class="input-field" rows="4" placeholder="Briefly describe your vision..."></textarea>
+                </div>
+                <button type="submit" class="btn-premium" style="width: 100%; border: none; cursor: pointer;">Send Enquiry</button>
+            </form>
+        </div>
+
+        <div class="quick-connect glass reveal">
+            <h3>Instant Connect</h3>
+            <p style="color: var(--text-dim); font-size: 14px; margin-top: 10px;">Skip the form and talk to the founders directly.</p>
+            
+            <div class="action-btns">
+                <a href="tel:9820231060" class="action-link link-call">
+                    <i class="fas fa-phone"></i> Call Devesh Patel
+                </a>
+                <a href="tel:7021148404" class="action-link link-call">
+                    <i class="fas fa-phone"></i> Call Nihar Padave
+                </a>
+                <a href="https://wa.me/9820231060" class="action-link link-whatsapp">
+                    <i class="fab fa-whatsapp"></i> WhatsApp Devesh Patel
+                </a>
+                <a href="https://wa.me/7021148404" class="action-link link-whatsapp">
+                    <i class="fab fa-whatsapp"></i> WhatsApp Nihar Padave
+                </a>
+            </div>
+
+            <div style="margin-top: 30px; border-top: 1px solid var(--glass-border); padding-top: 20px;">
+                <p style="font-size: 13px; color: var(--gold-muted);"><i class="fas fa-clock"></i> Response time: Under 2 hours</p>
+                <p style="font-size: 13px; margin-top: 5px;"><i class="fas fa-map-marker-alt"></i> Mumbai, India</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="faq">
+    <h2 class="section-title reveal">Common <span class="gold-text">Questions</span></h2>
+    <div class="glass reveal" style="max-width: 800px; margin: 0 auto; padding: 20px;">
+        
+        <details style="padding: 20px; border-bottom: 1px solid var(--glass-border); cursor: pointer;">
+            <summary style="font-weight: 700; color: #ffd966; list-style: none; display: flex; justify-content: space-between; align-items: center;">
+                How long does it take to build my website?
+                <i class="fas fa-plus" style="font-size: 0.8rem;"></i>
+            </summary>
+            <p style="margin-top: 15px; color: var(--text-dim); font-size: 0.95rem;">
+                For our <span class="gold-text">Starter</span> package, we typically deliver within 3-5 business days. <span class="gold-text">Business Elite</span> projects usually take 7-10 days depending on content readiness.
+            </p>
+        </details>
+
+        <details style="padding: 20px; border-bottom: 1px solid var(--glass-border); cursor: pointer;">
+            <summary style="font-weight: 700; color: #ffd966; list-style: none; display: flex; justify-content: space-between; align-items: center;">
+                Is domain and hosting included in the price?
+                <i class="fas fa-plus" style="font-size: 0.8rem;"></i>
+            </summary>
+            <p style="margin-top: 15px; color: var(--text-dim); font-size: 0.95rem;">
+                Yes! Our packages include 1 year of free domain registration (.com/.in) and hosting setup assistance to ensure your business goes live without any hidden technical hurdles.
+            </p>
+        </details>
+
+        <details style="padding: 20px; border-bottom: 1px solid var(--glass-border); cursor: pointer;">
+            <summary style="font-weight: 700; color: #ffd966; list-style: none; display: flex; justify-content: space-between; align-items: center;">
+                Can I request custom features like a booking system?
+                <i class="fas fa-plus" style="font-size: 0.8rem;"></i>
+            </summary>
+            <p style="margin-top: 15px; color: var(--text-dim); font-size: 0.95rem;">
+                Absolutely. Our <span class="gold-text">Enterprise</span> solutions are designed for custom logic. Whether you need a Hospital Triage System or an Appointment Manager, we build it from scratch using our core tech stack.
+            </p>
+        </details>
+
+        <details style="padding: 20px; cursor: pointer;">
+            <summary style="font-weight: 700; color: #ffd966; list-style: none; display: flex; justify-content: space-between; align-items: center;">
+                What if I need updates after the website is live?
+                <i class="fas fa-plus" style="font-size: 0.8rem;"></i>
+            </summary>
+            <p style="margin-top: 15px; color: var(--text-dim); font-size: 0.95rem;">
+                We offer maintenance support for all our clients. Enterprise clients receive 6 months of priority support, while others can opt for our affordable "Growth Support" maintenance plans.
+            </p>
+        </details>
+
+    </div>
+</section>
+
+<style>
+    /* Styling to make the accordion feel premium */
+    details summary::-webkit-details-marker { display: none; }
+    details[open] summary i { transform: rotate(45deg); color: #fff; }
+    details summary { transition: 0.3s; }
+    details p { animation: fadeInUp 0.4s ease; }
+</style>
+
+<footer>
+    <div class="social-links">
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-linkedin"></i></a>
+    </div>
+    <p style="font-size: 14px; color: var(--text-dim);">&copy; 2026 Buildify Studio. All rights reserved.</p>
+    <p style="font-size: 12px; margin-top: 10px; color: var(--gold-muted);">Designed for Excellence</p>
+</footer>
+
+<script>
+    // Intersection Observer for Scroll Reveals
+    const observerOptions = {
+        threshold: 0.15
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Subtle parallax for the background on mouse move
+    document.addEventListener('mousemove', (e) => {
+        const moveX = (e.clientX - window.innerWidth / 2) * 0.01;
+        const moveY = (e.clientY - window.innerHeight / 2) * 0.01;
+        document.body.style.backgroundPosition = `${moveX}px ${moveY}px`;
+    });
+</script>
+
+</body>
+</html>

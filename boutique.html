@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buildify Boutique | The Golden Label</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --gold-gradient: linear-gradient(135deg, #d4af37 0%, #f1d592 50%, #b8962e 100%);
+            --deep-black: #080808;
+            --glass-white: rgba(255, 255, 255, 0.03);
+            --gold-border: rgba(212, 175, 55, 0.3);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Playfair Display', serif; background-color: var(--deep-black); color: #fff; overflow-x: hidden; }
+
+        /* Navigation */
+        nav {
+            padding: 30px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
+        }
+
+        .nav-logo { font-size: 1.5rem; font-weight: 900; letter-spacing: 2px; }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
+                        url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1600&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        .hero-title { font-size: clamp(3rem, 10vw, 6rem); text-transform: uppercase; line-height: 0.9; margin-bottom: 20px; }
+        .gold-span { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        /* Catalog Section */
+        .catalog { padding: 100px 5%; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        
+        .product-card {
+            background: var(--glass-white);
+            border: 1px solid var(--gold-border);
+            border-radius: 0; /* Square edges for luxury feel */
+            overflow: hidden;
+            position: relative;
+            transition: 0.5s cubic-bezier(0.2, 1, 0.3, 1);
+        }
+
+        .product-img { width: 100%; height: 450px; object-fit: cover; transition: 0.5s; }
+        
+        .product-card:hover .product-img { transform: scale(1.05); filter: brightness(0.7); }
+
+        .product-info {
+            position: absolute;
+            bottom: -100px;
+            left: 0;
+            width: 100%;
+            padding: 30px;
+            background: linear-gradient(to top, #000, transparent);
+            transition: 0.4s;
+            text-align: center;
+        }
+
+        .product-card:hover .product-info { bottom: 0; }
+
+        /* Action Buttons */
+        .btn-gold {
+            display: inline-block;
+            padding: 12px 35px;
+            background: var(--gold-gradient);
+            color: #000;
+            text-decoration: none;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            margin-top: 15px;
+        }
+
+        /* Inquiry Section */
+        .inquiry {
+            padding: 100px 5%;
+            background: radial-gradient(circle at center, #151208 0%, #080808 100%);
+            text-align: center;
+        }
+
+        .inquiry-box {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 60px;
+            border: 1px solid var(--gold-border);
+            backdrop-filter: blur(10px);
+        }
+
+        .reveal { opacity: 0; transform: translateY(50px); transition: 1s all ease; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* Mobile Adjustments */
+        @media (max-width: 768px) {
+            .hero-title { font-size: 3.5rem; }
+            .grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="nav-logo">BUIL<span class="gold-span">DIFY</span></div>
+        <div class="nav-links"><i class="fas fa-bars"></i></div>
+    </nav>
+
+    <header class="hero">
+        <div class="reveal">
+            <p style="letter-spacing: 8px; margin-bottom: 20px;">AUTUMN COLLECTION 2026</p>
+            <h1 class="hero-title">Timeless <br><span class="gold-span">Elegance</span></h1>
+            <a href="#collection" class="btn-gold">Explore Pieces</a>
+        </div>
+    </header>
+
+    <section class="catalog" id="collection">
+        <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 60px; letter-spacing: 5px;">THE <span class="gold-span">GALLERY</span></h2>
+        <div class="grid">
+            
+            <div class="product-card reveal">
+                <img src="https://images.unsplash.com/photo-1539109132374-348218a1f226?auto=format&fit=crop&w=800&q=80" class="product-img" alt="Luxury Wear">
+                <div class="product-info">
+                    <h3>Velvet Evening Gown</h3>
+                    <p style="color: #d4af37; margin: 10px 0;">Premium Selection</p>
+                    <a href="https://wa.me/91XXXXXXXXXX?text=Inquiry: Velvet Evening Gown" class="btn-gold">Check Availability</a>
+                </div>
+            </div>
+
+            <div class="product-card reveal">
+                <img src="https://images.unsplash.com/photo-1485230895905-ec40ba36b9bc?auto=format&fit=crop&w=800&q=80" class="product-img" alt="Accessories">
+                <div class="product-info">
+                    <h3>Signature Timepiece</h3>
+                    <p style="color: #d4af37; margin: 10px 0;">Limited Edition</p>
+                    <a href="https://wa.me/91XXXXXXXXXX?text=Inquiry: Signature Timepiece" class="btn-gold">Check Availability</a>
+                </div>
+            </div>
+
+            <div class="product-card reveal">
+                <img src="https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=800&q=80" class="product-img" alt="Footwear">
+                <div class="product-info">
+                    <h3>Handcrafted Silk Heels</h3>
+                    <p style="color: #d4af37; margin: 10px 0;">Artisan Series</p>
+                    <a href="https://wa.me/91XXXXXXXXXX?text=Inquiry: Handcrafted Silk Heels" class="btn-gold">Check Availability</a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="inquiry">
+        <div class="inquiry-box reveal">
+            <h2 style="margin-bottom: 20px; font-size: 2rem;">PRIVATE <span class="gold-span">SHOWING</span></h2>
+            <p style="color: #aaa; margin-bottom: 40px;">Experience the collection in person. Book a private appointment at our Mumbai showroom.</p>
+            <a href="tel:91XXXXXXXXXX" class="btn-gold" style="background: transparent; border: 1px solid #d4af37; color: #fff;">Request Callback</a>
+            <div style="margin-top: 40px; display: flex; justify-content: center; gap: 30px; color: #d4af37;">
+                <i class="fab fa-instagram fa-2x"></i>
+                <i class="fab fa-facebook-f fa-2x"></i>
+                <i class="fab fa-pinterest-p fa-2x"></i>
+            </div>
+        </div>
+    </section>
+
+    <footer style="padding: 50px; text-align: center; font-size: 0.8rem; letter-spacing: 2px; opacity: 0.6;">
+        © 2026 BUILDIFY DIGITAL STUDIO | ESTABLISHED IN MUMBAI
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('active');
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
