@@ -2,7 +2,7 @@
 
 **Buildify** is a high-end digital agency interface designed for professionals who demand a "Gold Standard" online presence. Developed by **Nihar Padave** and **Devesh Patel**, this project combines modern **Glassmorphism** aesthetics with robust engineering to help local businesses scale effectively.
 
-🔗 **[Live Demo: View Buildify Studio](https://nihar-2812.github.io/Buildify/)**
+🔗 **[Live Demo: View Buildify Studio](https://buildify-tau.vercel.app/)**
 
 ---
 
