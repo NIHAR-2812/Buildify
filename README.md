@@ -15,9 +15,9 @@
 * **Links**: [GitHub](https://github.com/NIHAR-2812) | [LinkedIn](https://www.linkedin.com/in/niharpadave281206/)
 
 ### **Devesh Patel**
-* **Role**: Strategy & Client Solutions
-* **Expertise**: Technical execution, project management, and business-oriented development
-* **Focus**: Bridging complex engineering logic with practical, results-driven client goals
+* **Role**: Frontend Developer & Strategist
+* **Expertise**: Client-side interactivity, project management, and business logic integration
+* **Focus**: Implementing responsive, performance-oriented interfaces that meet business goals
 * **Links**: [GitHub](https://github.com/devesh1308) | [LinkedIn](https://www.linkedin.com/in/deveshpatel1308/)
 
 ---
